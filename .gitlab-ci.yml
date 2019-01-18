@@ -35,3 +35,6 @@ deploy:
 
   # Deploy metadata and execute unit tests
   - sfdx force:mdapi:deploy --wait 10 --deploydir $DEPLOYDIR --targetusername UAT --testlevel $TESTLEVEL
+
+  # Example shows how to run a check only deploy
+  #- sfdx force:mdapi:deploy --checkonly --wait 10 --deploydir $DEPLOYDIR --targetusername UAT --testlevel $TESTLEVEL
