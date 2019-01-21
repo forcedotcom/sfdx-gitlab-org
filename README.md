@@ -33,7 +33,7 @@ If any any of these assumptions aren't true, the following steps won't work.
 
     `openssl aes-256-cbc -salt -e -in server.key -out server.key.enc -k password`
 
-6) Setup GitLab CI / CD [environment variable](https://gitlab.com/help/ci/variables/README#variables) for the password you used to encrypt your `server.key` file.
+8) Setup GitLab CI / CD [environment variable](https://gitlab.com/help/ci/variables/README#variables) for the password you used to encrypt your `server.key` file.
 
     Create an environment variable named `SERVER_KEY_PASSWORD` and set it as protected.
 
