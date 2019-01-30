@@ -15,8 +15,10 @@ before_script:
   - export DEPLOYDIR=src
   - export TESTLEVEL=RunLocalTests
 
-  # Install SFDX
+  #Create SFDX directory
   - mkdir sfdx
+
+  #Install Salesforce CLI 
   - wget -qO- $CLIURL | tar xJ -C sfdx --strip-components 1
   - "./sfdx/install"
   - export PATH=./sfdx/$(pwd):$PATH
@@ -26,14 +28,14 @@ before_script:
   - sfdx plugins --core
 
 #
-# Deploy metadata to Salesforce
+# The script step will authenticate to the target deployment org and deploy the metadata.
 #
 deploy: 
   script:
-  # Authenticate to Salesforce using server key
+  # Authorize target deployment org
   - sfdx force:auth:jwt:grant --instanceurl https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME --setalias UAT 
 
-  # Deploy metadata and execute unit tests
+  # Deploy to target deployment org and run unit tests
   - sfdx force:mdapi:deploy --wait 10 --deploydir $DEPLOYDIR --targetusername UAT --testlevel $TESTLEVEL
 
   # Example shows how to run a check only deploy
