@@ -22,7 +22,7 @@ If any any of these assumptions aren't true, the following steps won't work.
 
 5) Confirm you can perform a JWT-based auth to the target orgs: `sfdx force:auth:jwt:grant --clientid <your_consumer_key> --jwtkeyfile server.key --username <your_username>`
 
-   **Note:** For more info on setting up JWT-based auth see [Authorize an Org Using the JWT-Based Flow](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_jwt_flow.htm) in the [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev).
+    **Note:** For more info on setting up JWT-based auth see [Authorize an Org Using the JWT-Based Flow](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_jwt_flow.htm) in the [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev).
 
 6) From your JWT-Based connected app on Salesforce, retrieve the generated `Consumer Key`.
 
@@ -32,6 +32,8 @@ If any any of these assumptions aren't true, the following steps won't work.
 
     Create an environment variable named `SF_USERNAME` and set it as protected.
 
+    **Note:** Setting the variables as protected requires the branch to be set as protected as well.
+   
 8) Encrypt your `server.key` file that you generated previously and add the encrypted file (`server.key.enc`) to the folder named `assets`.
 
     `openssl aes-256-cbc -salt -e -in server.key -out server.key.enc -k password`
