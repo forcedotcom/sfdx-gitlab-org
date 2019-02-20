@@ -1,11 +1,11 @@
 #
-# Download the SFDX CLI and install it
+# Download the Salesforce CLI and install it
 #
 before_script:
   # Decrypt server key
   - openssl aes-256-cbc -d -md md5 -in assets/server.key.enc -out assets/server.key -k $SERVER_KEY_PASSWORD
 
-  # Setup SFDX environment variables
+  # Set up environment variables
   - export CLIURL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz  
   - export SFDX_AUTOUPDATE_DISABLE=false
   - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
@@ -15,7 +15,7 @@ before_script:
   - export DEPLOYDIR=src
   - export TESTLEVEL=RunLocalTests
 
-  #Create SFDX directory
+  #Create sfdx directory
   - mkdir sfdx
 
   #Install Salesforce CLI 
@@ -23,12 +23,12 @@ before_script:
   - "./sfdx/install"
   - export PATH=./sfdx/$(pwd):$PATH
 
-  # Output SFDX version and plugin information
+  # Output CLI version and plug-in information
   - sfdx --version
   - sfdx plugins --core
 
 #
-# The script step will authenticate to the target deployment org and deploy the metadata.
+# The script step authenticates to the target deployment org and deploys the metadata
 #
 deploy: 
   script:
@@ -38,5 +38,5 @@ deploy:
   # Deploy to target deployment org and run unit tests
   - sfdx force:mdapi:deploy --wait 10 --deploydir $DEPLOYDIR --targetusername UAT --testlevel $TESTLEVEL
 
-  # Example shows how to run a check only deploy
+  # Example shows how to run a check-only deploy
   #- sfdx force:mdapi:deploy --checkonly --wait 10 --deploydir $DEPLOYDIR --targetusername UAT --testlevel $TESTLEVEL
