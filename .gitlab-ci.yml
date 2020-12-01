@@ -33,7 +33,7 @@ before_script:
 deploy: 
   script:
   # Authorize target deployment org
-  - sfdx force:auth:jwt:grant --instanceurl https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME --setalias UAT 
+  - sfdx auth:jwt:grant --instanceurl https://test.salesforce.com --clientid $SF_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SF_USERNAME --setalias UAT 
 
   # Deploy to target deployment org and run unit tests
   - sfdx force:mdapi:deploy --wait 10 --deploydir $DEPLOYDIR --targetusername UAT --testlevel $TESTLEVEL
