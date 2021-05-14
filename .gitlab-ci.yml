@@ -2,9 +2,6 @@
 # Download the Salesforce CLI and install it
 #
 before_script:
-  # Decrypt server key
-  - openssl aes-256-cbc -d -md md5 -in assets/server.key.enc -out assets/server.key -k $SERVER_KEY_PASSWORD
-
   # Set up environment variables
   - export CLIURL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz  
   - export SFDX_AUTOUPDATE_DISABLE=false
@@ -16,17 +13,18 @@ before_script:
   - export TESTLEVEL=RunLocalTests
 
   #Create sfdx directory
-  - mkdir sfdx
+  - mkdir ~/sfdx
 
   #Install Salesforce CLI 
-  - wget -qO- $CLIURL | tar xJ -C sfdx --strip-components 1
-  - "./sfdx/install"
-  - export PATH=./sfdx/$(pwd):$PATH
+  - wget -qO- ${DX_CLI_URL_CUSTOM-$CLIURL} | tar xJ -C ~/sfdx --strip-components 1
+  - export PATH=~/sfdx/bin:$PATH
 
   # Output CLI version and plug-in information
   - sfdx --version
   - sfdx plugins --core
 
+  # Decrypt server key
+  - openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
 #
 # The script step authenticates to the target deployment org and deploys the metadata
 #
