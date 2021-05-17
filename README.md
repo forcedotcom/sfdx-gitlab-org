@@ -56,15 +56,14 @@ openssl enc -nosalt -aes-256-cbc -in your_key_location/server.key -out assets/se
     **Note** - this is the endpoint that you use to log in to your target org (e.g. login.salesforce.com).
 
     **Note:** Setting the variables as protected requires that you set the branch to protected as well.
-   
-9) Encrypt the generated `server.key` file and add the encrypted file (`server.key.enc`) to the folder named `assets`.
 
-    `openssl aes-256-cbc -salt -e -in server.key -out server.key.enc -k password`
-
-10) Set up GitLab CI/CD [environment variable](https://gitlab.com/help/ci/variables/README#variables) The `key` and `iv` used to encrypt your `server.key` file.
+9) Set up GitLab CI/CD [environment variable](https://gitlab.com/help/ci/variables/README#variables) The `key` and `iv` used to encrypt your `server.key` file.
 
     Create an environment variable named `DECRYPTION_KEY` and set it as protected.
+
     Create an environment variable named `DECRYPTION_IV` and set it as protected.
+
+    **Note:** Setting the variables as protected requires that you set the branch to protected as well.
 
 Now you're ready to go! Wwhen you commit and push a change, your change kicks off a GitLab CI build.
 
